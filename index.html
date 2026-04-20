@@ -20,6 +20,16 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh}
 .urdu{font-family:'Noto Nastaliq Urdu',serif;direction:rtl;line-height:2}
+body.lang-ur{font-family:'Noto Nastaliq Urdu',serif;direction:rtl}
+body.lang-ur input,body.lang-ur select,body.lang-ur textarea{font-family:'Noto Nastaliq Urdu',serif;direction:rtl;text-align:right}
+body.lang-ur .btn{font-family:'Noto Nastaliq Urdu',serif}
+body.lang-ur th,body.lang-ur td{text-align:right;direction:rtl}
+body.lang-ur header{direction:rtl}
+body.lang-ur .toolbar{direction:rtl}
+body.lang-ur .modal{direction:rtl;text-align:right}
+body.lang-ur label{font-family:'Noto Nastaliq Urdu',serif;text-transform:none;letter-spacing:0}
+body.lang-ur .stat-label{font-family:'Noto Nastaliq Urdu',serif;text-transform:none;letter-spacing:0}
+body.lang-ur .ltr{direction:ltr !important;font-family:'IBM Plex Mono',monospace !important}
 .screen{display:none;min-height:100vh}.screen.active{display:flex}
 
 /* LOGIN */
@@ -281,21 +291,21 @@ tr.row-locked td{background:#fafaf9}
     </div>
 
     <div class="lfield">
-      <label><span data-en="Location" data-ur="مقام">Location</span></label>
+      <label><span data-en="Location" data-ur="مقام" data-ur="مقام">Location</span></label>
       <select id="login-loc"><option value="">— Select location —</option><option>K1</option><option>K2</option><option>K3</option></select>
     </div>
     <div class="lfield">
-      <label><span data-en="Username" data-ur="صارف نام">Username</span></label>
+      <label><span data-en="Username" data-ur="صارف نام" data-ur="صارف نام">Username</span></label>
       <input type="text" id="login-user" placeholder="Enter username" autocomplete="username">
     </div>
     <div class="lfield">
-      <label><span data-en="PIN / Password" data-ur="پن / پاسورڈ">PIN / Password</span></label>
+      <label><span data-en="PIN / Password" data-ur="پاس ورڈ" data-ur="پن / پاسورڈ">PIN / Password</span></label>
       <input type="password" id="login-pin" placeholder="••••" maxlength="20" autocomplete="current-password">
     </div>
     <div class="login-err" id="login-err">Invalid username, PIN, or location.</div>
     <div style="margin-top:1rem">
       <button class="btn btn-primary" style="width:100%;padding:10px" onclick="doLogin()">
-        <span data-en="Sign In →" data-ur="لاگ ان ←">Sign In →</span>
+        <span data-en="Sign In →" data-ur="داخل ہوں ←" data-ur="لاگ ان ←">Sign In →</span>
       </button>
     </div>
 
@@ -482,17 +492,48 @@ tr.row-locked td{background:#fafaf9}
 <script>
 function setLang(lang){
   window._kdfLang=lang;
+  localStorage.setItem('kdf_lang',lang);
   if(window._setModuleLang) window._setModuleLang(lang);
+
+  // ── Full RTL / Urdu layout ──
+  document.documentElement.setAttribute('dir', lang==='ur'?'rtl':'ltr');
+  document.documentElement.setAttribute('lang', lang==='ur'?'ur':'en');
+  document.body.style.fontFamily = lang==='ur'?"Noto Nastaliq Urdu, serif":"IBM Plex Sans, sans-serif";
+  document.body.classList.toggle('lang-ur', lang==='ur');
+
+  // Toggle active button
   var en=document.getElementById('lang-en'), ur=document.getElementById('lang-ur');
   if(en) en.classList.toggle('active',lang==='en');
   if(ur) ur.classList.toggle('active',lang==='ur');
+
+  // Translate all data-en/data-ur elements
   document.querySelectorAll('[data-en]').forEach(function(el){
     el.textContent=lang==='ur'?(el.dataset.ur||el.dataset.en):el.dataset.en;
-    if(lang==='ur') el.classList.add('urdu'); else el.classList.remove('urdu');
+    if(lang==='ur'){ el.classList.add('urdu'); el.style.fontFamily="Noto Nastaliq Urdu, serif"; }
+    else { el.classList.remove('urdu'); el.style.fontFamily=''; }
   });
+
+  // Placeholders
   var pu=document.getElementById('login-user');
   if(pu) pu.placeholder=lang==='ur'?'صارف نام داخل کریں':'Enter username';
+  var pp=document.getElementById('login-pin');
+  if(pp) pp.placeholder=lang==='ur'?'پاس ورڈ':'Password / PIN';
+
+  // Inputs & selects — switch font for urdu readability
+  document.querySelectorAll('input[type=text],input[type=password],textarea,select,label,.btn,th,td,h1,h2,h3,h4,p,.stat-label').forEach(function(el){
+    el.style.fontFamily=lang==='ur'?"Noto Nastaliq Urdu, serif":'';
+    if(lang==='ur') el.style.lineHeight='2';
+    else el.style.lineHeight='';
+  });
+
+  // Header text alignment
+  document.querySelectorAll('header,.toolbar,.stats-row,main').forEach(function(el){
+    el.style.direction=lang==='ur'?'rtl':'ltr';
+  });
 }
+
+// Restore saved language on load
+(function(){ var l=localStorage.getItem('kdf_lang'); if(l) setLang(l); })();
 </script>
 
 <script type="module">
@@ -1235,23 +1276,22 @@ document.addEventListener('keydown',e=>{
 });
 
 // ── BOOT ─────────────────────────────────────────────────────────────────
+// ★ HARDCODED FIREBASE CONFIG — no setup needed for any user
+const HARDCODED_FB_CFG = {
+  apiKey:      "AIzaSyD2v_K5czDp-lCo47ZHleX9rZ2Bd8ko2To",
+  authDomain:  "gate-log-system.firebaseapp.com",
+  databaseURL: "https://gate-log-system-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:   "gate-log-system"
+};
+
 (function(){
   // restore session
   try{ const s=JSON.parse(sessionStorage.getItem(SESS_KEY)||'null'); if(s) currentUser=s; } catch(e){}
+  // Use saved config if available (admin override), otherwise use hardcoded
   const saved=localStorage.getItem(CFG_KEY);
-  if(saved){
-    try{
-      const cfg=JSON.parse(saved);
-      initFirebase(cfg);
-      // #1: go straight to login, not setup
-      if(currentUser) setTimeout(launchApp,700);
-      return;
-    } catch(e){}
-  }
-  const demo=localStorage.getItem(DEMO_KEY);
-  if(demo){ useDemoMode(); if(currentUser) launchApp(); return; }
-  // #1: First-ever load → show setup; thereafter always login
-  showScreen('setup-screen');
+  const cfg = saved ? (() => { try{ return JSON.parse(saved); }catch(e){ return null; } })() : null;
+  initFirebase(cfg || HARDCODED_FB_CFG);
+  if(currentUser) setTimeout(launchApp, 700);
 })();
 </script>
 </body>
