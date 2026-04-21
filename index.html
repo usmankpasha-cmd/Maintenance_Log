@@ -21,21 +21,58 @@
 body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh}
 .urdu{font-family:'Noto Nastaliq Urdu',serif;direction:rtl;line-height:2}
 body.lang-ur{font-family:'Noto Nastaliq Urdu',serif;direction:rtl}
-body.lang-ur *{direction:rtl}
-body.lang-ur .ltr{direction:ltr !important;font-family:'IBM Plex Mono',monospace !important;text-align:left !important}
 body.lang-ur input,body.lang-ur select,body.lang-ur textarea{font-family:'Noto Nastaliq Urdu',serif;direction:rtl;text-align:right}
 body.lang-ur .btn{font-family:'Noto Nastaliq Urdu',serif}
 body.lang-ur th,body.lang-ur td{text-align:right;direction:rtl}
-body.lang-ur header,body.lang-ur .toolbar,body.lang-ur .toolbar2,body.lang-ur .modal,body.lang-ur .form-grid,body.lang-ur .add-form-grid,body.lang-ur .task-meta-grid,body.lang-ur .uep-grid,body.lang-ur .dept-check-grid,body.lang-ur .loc-check-grid{direction:rtl}
-body.lang-ur .modal{text-align:right}
-body.lang-ur label,body.lang-ur .stat-label{font-family:'Noto Nastaliq Urdu',serif;text-transform:none;letter-spacing:0}
-body.lang-ur .hdr-logo,body.lang-ur .hdr-right,body.lang-ur .login-logo-wrap,body.lang-ur .step,body.lang-ur .toolbar,body.lang-ur .toolbar2,body.lang-ur .user-row-top,body.lang-ur .uep-check-row,body.lang-ur .user-row-perms,body.lang-ur .modal-actions,body.lang-ur .del-actions,body.lang-ur .update-row{flex-direction:row-reverse}
-body.lang-ur .user-pill,body.lang-ur .dept-check,body.lang-ur .loc-check,body.lang-ur .uep-check,body.lang-ur .trail-item{flex-direction:row-reverse}
-body.lang-ur .toast-container{left:1.5rem;right:auto;align-items:flex-start}
-body.lang-ur .mic-wrap{direction:ltr}
-body.lang-ur .mic-wrap input,body.lang-ur .mic-wrap textarea{direction:rtl;text-align:right;border-radius:0 var(--radius) var(--radius) 0 !important;border-right:1px solid var(--border)!important;border-left:none!important}
-body.lang-ur .mic-btn{border-left:1px solid var(--border);border-right:none;border-radius:var(--radius) 0 0 var(--radius)}
-body.lang-ur th,body.lang-ur td,body.lang-ur .table-wrap,body.lang-ur .panel,body.lang-ur .modal,body.lang-ur .card,body.lang-ur .stat-card{text-align:right}
+body.lang-ur header{direction:rtl}
+body.lang-ur .toolbar{direction:rtl}
+body.lang-ur .modal{direction:rtl;text-align:right}
+body.lang-ur label{font-family:'Noto Nastaliq Urdu',serif;text-transform:none;letter-spacing:0}
+body.lang-ur .stat-label{font-family:'Noto Nastaliq Urdu',serif;text-transform:none;letter-spacing:0}
+body.lang-ur .ltr{direction:ltr !important;font-family:'IBM Plex Mono',monospace !important}
+
+/* stronger Urdu/RTL layout parity with gate app */
+body.lang-ur, body.lang-ur *:not(.ltr){direction:rtl}
+body.lang-ur main{text-align:right}
+body.lang-ur .toolbar,
+body.lang-ur .toolbar2,
+body.lang-ur .hdr-right,
+body.lang-ur .modal-actions,
+body.lang-ur .del-actions,
+body.lang-ur .setup-actions,
+body.lang-ur .user-row,
+body.lang-ur .user-actions,
+body.lang-ur .quick-actions,
+body.lang-ur .task-actions{flex-direction:row-reverse}
+body.lang-ur .toolbar input[type=text],
+body.lang-ur .toolbar select,
+body.lang-ur .toolbar2 .btn,
+body.lang-ur .form-field input,
+body.lang-ur .form-field select,
+body.lang-ur .form-field textarea{text-align:right}
+body.lang-ur .toolbar .rec-count{order:-1;margin-left:0;margin-right:6px;text-align:right}
+body.lang-ur .toolbar .search-wrap{margin-right:auto;margin-left:0}
+body.lang-ur .toolbar2 .spacer{display:none}
+body.lang-ur .table-wrap{direction:rtl}
+body.lang-ur table{direction:rtl}
+body.lang-ur th,body.lang-ur td{white-space:nowrap}
+body.lang-ur .logo-dot{margin-left:0;margin-right:6px}
+body.lang-ur .lock-icon{margin-left:0;margin-right:4px}
+body.lang-ur input::placeholder,body.lang-ur textarea::placeholder{text-align:right}
+
+body.lang-ur .stats-row{direction:rtl}
+body.lang-ur .toolbar{direction:rtl;flex-direction:row-reverse;justify-content:flex-start}
+body.lang-ur .toolbar2{direction:rtl;flex-direction:row-reverse;justify-content:flex-start}
+body.lang-ur .hdr-logo{flex-direction:row-reverse}
+body.lang-ur .hdr-logo > div[style]{margin-left:0 !important;margin-right:8px !important;text-align:right}
+body.lang-ur .stats-row .stat-card{text-align:right}
+body.lang-ur .toolbar .rec-count{order:0;margin-right:0;margin-left:auto;text-align:left}
+body.lang-ur .toolbar input[type=text]{order:99}
+body.lang-ur .toolbar2 .spacer{display:none !important}
+body.lang-ur .toolbar2 .btn{order:0}
+body.lang-ur .table-wrap table{min-width:1200px}
+body.lang-ur thead tr,body.lang-ur tbody tr{direction:rtl}
+
 .screen{display:none;min-height:100vh}.screen.active{display:flex}
 
 /* LOGIN */
@@ -100,11 +137,11 @@ main{max-width:1380px;margin:0 auto;padding:1.25rem 1.5rem;width:100%}
 .stat-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:4px;font-family:'IBM Plex Mono',monospace}
 .stat-num{font-size:24px;font-weight:600;color:var(--text);line-height:1}
 .stat-num.c-amber{color:var(--amber)}.stat-num.c-green{color:var(--green)}.stat-num.c-red{color:var(--red)}.stat-num.c-blue{color:var(--blue)}.stat-num.c-purple{color:var(--purple)}
-.toolbar{display:flex;align-items:center;gap:7px;margin-bottom:.6rem;flex-wrap:wrap}
-.toolbar input[type=text]{font-family:'IBM Plex Sans',sans-serif;font-size:13px;padding:7px 11px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);width:160px}
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:.85rem;flex-wrap:wrap}
+.toolbar input[type=text]{font-family:'IBM Plex Sans',sans-serif;font-size:13px;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);width:210px}
 .toolbar input[type=text]:focus{outline:none;border-color:var(--accent)}
-.toolbar select{font-family:'IBM Plex Sans',sans-serif;font-size:13px;padding:7px 9px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);cursor:pointer}
-.toolbar2{display:flex;align-items:center;gap:7px;margin-bottom:1rem;flex-wrap:wrap}
+.toolbar select{font-family:'IBM Plex Sans',sans-serif;font-size:13px;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);cursor:pointer;min-width:150px}
+.toolbar2{display:flex;align-items:center;gap:10px;margin-bottom:1rem;flex-wrap:wrap}
 .spacer{flex:1}
 .btn{font-family:'IBM Plex Sans',sans-serif;font-size:13px;padding:7px 13px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;white-space:nowrap;font-weight:500;transition:background .12s}
 .btn:hover{background:var(--surface2)}
@@ -496,6 +533,50 @@ tr.row-locked td{background:#fafaf9}
 
 <!-- Non-module bridge for onclick handlers that fire before module loads -->
 <script>
+function translateMaintenanceUI(lang){
+  var ur = lang==='ur';
+  var q = function(s){ return document.querySelector(s); };
+  var qa = function(s){ return Array.from(document.querySelectorAll(s)); };
+
+  var headerTitle = q('.hdr-logo-text');
+  if(headerTitle) headerTitle.textContent = ur ? 'مینٹیننس لاگ' : 'MAINTENANCE LOG';
+
+  var signOutBtn = q('button[onclick="doLogout()"]');
+  if(signOutBtn) signOutBtn.textContent = ur ? 'لاگ آؤٹ' : 'Sign out';
+  var usersBtn = q('#btn-users'); if(usersBtn) usersBtn.innerHTML = ur ? 'صارفین 👥' : '👥 Users';
+  var dbBtn = q('#btn-db-settings'); if(dbBtn) dbBtn.innerHTML = ur ? 'ڈی بی ⚙' : '⚙ DB';
+  var sync = q('#sync-badge'); if(sync && sync.textContent.trim().toLowerCase()==='connecting…') sync.textContent = ur ? 'کنیکٹ ہو رہا ہے…' : 'connecting…';
+
+  var statLabels = ['Total','Pending','In Progress','Procurement','Resolved','Urgent/Critical','Overdue'];
+  var statUr = ['کل','زیر التواء','جاری','خریداری','حل شدہ','فوری/اہم','تاخیر شدہ'];
+  qa('.stats-row .stat-label').forEach(function(el,i){ el.textContent = ur ? statUr[i] : statLabels[i]; });
+
+  var s = q('#f-search'); if(s) s.placeholder = ur ? '...تلاش کریں' : 'Search tasks…';
+
+  function setOptions(id, labels){
+    var sel = q(id); if(!sel) return; Array.from(sel.options).forEach(function(opt,i){ if(labels[i]!=null) opt.textContent = labels[i]; });
+  }
+  setOptions('#f-loc', ur ? ['تمام مقامات','K1','K2','K3'] : ['All locations','K1','K2','K3']);
+  setOptions('#f-dept', ur ? ['تمام شعبہ جات','ہیلتھ','فیڈ','بریڈنگ','کالف','ایڈمن','سول','جنرل'] : ['All departments','Health','Feed','Breeding','Calf','Admin','Civil','General']);
+  setOptions('#f-nature', ur ? ['تمام نوعیت','نارمل','فوری','اہم'] : ['All natures','Normal','Urgent','Critical']);
+  setOptions('#f-status', ur ? ['تمام اسٹیٹس','زیر التواء','جاری','خریداری کا انتظار','ادائیگی زیر التواء','ادا شدہ','حل شدہ','موخر'] : ['All statuses','Pending','In Progress','Awaiting Procurement','Payment Pending','Paid','Resolved','Deferred']);
+
+  var btns = qa('.toolbar2 .btn');
+  if(btns[0]) btns[0].textContent = ur ? '＋ نیا ٹاسک' : '＋ New Task';
+  if(btns[1]) btns[1].textContent = ur ? '↓ CSV ایکسپورٹ' : '↓ Export CSV';
+  if(btns[2]) btns[2].textContent = ur ? '✕ فلٹر صاف کریں' : '✕ Clear Filters';
+
+  var thEn = ['Task ID','Date','Loc','Dept','Issue','Nature','Status','Assigned','Sub-Assigned','Deadline','Days','Latest Comment','Actions'];
+  var thUr = ['ٹاسک آئی ڈی','تاریخ','مقام','شعبہ','مسئلہ','نوعیت','حیثیت','تفویض','سب اسائن','ڈیڈ لائن','دن','آخری تبصرہ','کارروائی'];
+  qa('thead th').forEach(function(el,i){ el.textContent = ur ? thUr[i] : thEn[i]; if(i===0) el.classList.add('ltr'); });
+
+  var modalTitle=q('#task-modal-title'); if(modalTitle) modalTitle.textContent = ur ? 'نیا مینٹیننس ٹاسک' : 'New Maintenance Task';
+  var modalLabels = qa('#task-modal-overlay label');
+  var modalEn = ['Location','Department','Issue / Task Description','Nature / Priority','Raised By','Head / Responsible','Sub-Assigned','Status','Due Date','Remarks / Latest Comment'];
+  var modalUr = ['مقام','شعبہ','مسئلہ / ٹاسک کی تفصیل','نوعیت / ترجیح','درج کرنے والا','ذمہ دار','سب اسائن','اسٹیٹس','آخری تاریخ','تبصرہ / تازہ ترین کمنٹ'];
+  modalLabels.forEach(function(el,i){ if(modalEn[i]) el.textContent = ur ? modalUr[i] : modalEn[i]; });
+}
+
 function setLang(lang){
   window._kdfLang=lang;
   localStorage.setItem('kdf_lang',lang);
@@ -503,31 +584,32 @@ function setLang(lang){
 
   document.documentElement.setAttribute('dir', lang==='ur'?'rtl':'ltr');
   document.documentElement.setAttribute('lang', lang==='ur'?'ur':'en');
+  document.body.style.fontFamily = lang==='ur'?"Noto Nastaliq Urdu, serif":"IBM Plex Sans, sans-serif";
   document.body.classList.toggle('lang-ur', lang==='ur');
-  document.body.style.fontFamily = lang==='ur' ? "'Noto Nastaliq Urdu', serif" : "'IBM Plex Sans', sans-serif";
+  document.body.classList.toggle('ur', lang==='ur');
 
   var en=document.getElementById('lang-en'), ur=document.getElementById('lang-ur');
   if(en) en.classList.toggle('active',lang==='en');
   if(ur) ur.classList.toggle('active',lang==='ur');
 
-  document.querySelectorAll('[data-en]').forEach(function(el){
-    el.textContent = lang==='ur' ? (el.dataset.ur || el.dataset.en) : el.dataset.en;
-    el.classList.toggle('urdu', lang==='ur');
-    el.style.fontFamily = lang==='ur' ? "'Noto Nastaliq Urdu', serif" : '';
-  });
+  translateMaintenanceUI(lang);
 
   var pu=document.getElementById('login-user');
   if(pu) pu.placeholder=lang==='ur'?'صارف نام داخل کریں':'Enter username';
   var pp=document.getElementById('login-pin');
   if(pp) pp.placeholder=lang==='ur'?'پاس ورڈ':'Password / PIN';
 
-  document.querySelectorAll('.form-field input,.form-field select,.form-field textarea,.lfield input,.sf input,.btn,th,td,label,.stat-label').forEach(function(el){
-    el.style.fontFamily = lang==='ur' ? "'Noto Nastaliq Urdu', serif" : '';
+  document.querySelectorAll('input[type=text],input[type=password],textarea,select,label,.btn,th,td,h1,h2,h3,h4,p,.stat-label,.hdr-logo-text').forEach(function(el){
+    el.style.fontFamily=lang==='ur'?"Noto Nastaliq Urdu, serif":'';
+    el.style.lineHeight=lang==='ur'?'2':'';
   });
+
+  document.querySelectorAll('.ltr').forEach(function(el){ el.style.direction='ltr'; });
+  document.querySelectorAll('tbody td:last-child, .stat-num, #hdr-username, #hdr-role-tag').forEach(function(el){ el.style.direction='ltr'; });
 }
 
 // Restore saved language on load
-(function(){ var l=localStorage.getItem('kdf_lang'); if(l) setLang(l); })();
+(function(){ var l=localStorage.getItem('kdf_lang')||'en'; setLang(l); })();
 </script>
 
 <script type="module">
