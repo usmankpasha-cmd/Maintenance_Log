@@ -392,6 +392,58 @@ tr.row-locked td{background:#fafaf9}
   .sop-meta-row{grid-template-columns:1fr}
 }
 
+/* SHED ACCESS / BIOSECURITY */
+.btn-shed{background:#0f5132;color:#fff;border-color:#0f5132;font-weight:600;position:relative}
+.btn-shed:hover{background:#0a3d24}
+.btn-shed .pending-dot{position:absolute;top:-5px;right:-5px;background:var(--red);color:#fff;font-size:10px;font-family:'IBM Plex Mono',monospace;font-weight:700;padding:1px 5px;border-radius:8px;min-width:16px;text-align:center;border:2px solid var(--surface)}
+.sa-meta-row{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:11px}
+.sa-meta-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin-bottom:11px}
+.sa-list{display:flex;flex-direction:column;gap:8px;max-height:55vh;overflow-y:auto;margin-bottom:1rem}
+.sa-item{padding:11px 13px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:background .12s;border-left:3px solid transparent}
+.sa-item:hover{background:var(--border)}
+.sa-item.risk-high{border-left-color:var(--red)}
+.sa-item.risk-med{border-left-color:var(--amber)}
+.sa-item.risk-low{border-left-color:var(--green)}
+.sa-item-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;flex-wrap:wrap}
+.sa-item-title{font-size:14px;font-weight:600}
+.sa-item-meta{font-size:11px;color:var(--text2);font-family:'IBM Plex Mono',monospace;margin-top:3px}
+.sa-item-detail{font-size:12px;color:var(--text);margin-top:5px}
+.sa-status-badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:10px;font-family:'IBM Plex Mono',monospace;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.sa-status-pending{background:#fef3cd;color:var(--amber)}
+.sa-status-approved{background:var(--blue-bg);color:var(--blue)}
+.sa-status-rejected{background:var(--red-bg);color:var(--red)}
+.sa-status-checked-in{background:var(--purple-bg);color:var(--purple)}
+.sa-status-completed{background:var(--green-bg);color:var(--green)}
+.sa-status-overdue{background:var(--red-bg);color:var(--red);animation:pulse 2s infinite}
+.sa-risk-badge{display:inline-block;font-size:9px;padding:1px 6px;border-radius:8px;font-family:'IBM Plex Mono',monospace;font-weight:700;letter-spacing:.04em;margin-left:5px}
+.sa-risk-high{background:var(--red);color:#fff}
+.sa-risk-med{background:var(--amber);color:#fff}
+.sa-risk-low{background:var(--green);color:#fff}
+.sa-warn-box{background:#fef3cd;border:1px solid var(--amber);color:var(--amber);padding:9px 12px;border-radius:var(--radius);font-size:12px;margin:11px 0;display:flex;align-items:flex-start;gap:8px}
+.sa-warn-box.danger{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+.sa-checks{display:flex;flex-direction:column;gap:7px;margin:8px 0}
+.sa-check{display:flex;align-items:flex-start;gap:8px;font-size:12px;cursor:pointer;line-height:1.4}
+.sa-check input{margin-top:2px;accent-color:var(--green);cursor:pointer}
+.sa-check span{flex:1}
+.sa-section{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:11px 13px;margin-bottom:11px}
+.sa-section-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);font-family:'IBM Plex Mono',monospace;margin-bottom:5px}
+.sa-section-value{font-size:13px;color:var(--text);white-space:pre-wrap}
+.sa-trail{font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--text2);padding:5px 0;border-bottom:1px dashed var(--border)}
+.sa-trail:last-child{border-bottom:none}
+.sa-trail strong{color:var(--text)}
+.sa-action-bar{display:flex;gap:8px;flex-wrap:wrap;padding:11px 0;margin-top:5px;border-top:1px solid var(--border)}
+.sa-empty{text-align:center;padding:2rem;color:var(--text3);font-style:italic;font-size:12px}
+.sa-filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:11px;align-items:center}
+.sa-filter-row select,.sa-filter-row input{font-size:12px;padding:6px 9px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);font-family:'IBM Plex Sans',sans-serif}
+.sa-visitor-type{display:flex;gap:8px;margin-bottom:8px}
+.sa-visitor-type label{flex:1;display:flex;align-items:center;gap:6px;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;font-size:13px;background:var(--surface)}
+.sa-visitor-type label:has(input:checked){border-color:var(--accent);background:var(--blue-bg);color:var(--accent);font-weight:600}
+.sa-visitor-type input{accent-color:var(--accent)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+@media(max-width:680px){
+  .sa-meta-row,.sa-meta-row-3{grid-template-columns:1fr}
+}
+
 @media(max-width:680px){
   main{padding:.75rem}
   th:nth-child(5),td:nth-child(5),th:nth-child(9),td:nth-child(9){display:none}
@@ -519,6 +571,7 @@ tr.row-locked td{background:#fafaf9}
       <button class="btn btn-new-task" id="btn-new-task" onclick="openTaskModal()">＋ New Task</button>
       <button class="btn btn-hurdle" id="btn-hurdle" onclick="openHurdleMeetingsPanel()">🤝 Hurdle Meetings</button>
       <button class="btn btn-sop" id="btn-sops" onclick="openSopsPanel()">📜 SOPs</button>
+      <button class="btn btn-shed" id="btn-shed" onclick="openShedAccessPanel()">🛡️ Shed Access<span class="pending-dot" id="shed-pending-dot" style="display:none">0</span></button>
       <button class="btn" onclick="exportCSV()">↓ Export CSV</button>
       <button class="btn" onclick="clearFilters()">✕ Clear Filters</button>
     </div>
@@ -683,6 +736,37 @@ tr.row-locked td{background:#fafaf9}
   </div>
 </div>
 
+<!-- SHED ACCESS PANEL -->
+<div class="modal-overlay" id="sa-panel-overlay" onclick="if(event.target===this)closeShedAccessPanel()">
+  <div class="modal modal-lg">
+    <h2>🛡️ <span id="sa-panel-title">Shed Access &amp; Biosecurity Control</span></h2>
+    <div class="hm-tabs">
+      <button class="hm-tab active" id="sa-tab-pending" onclick="switchSaTab('pending')">⏳ Pending <span id="sa-pending-count" style="font-size:10px;margin-left:4px"></span></button>
+      <button class="hm-tab" id="sa-tab-active" onclick="switchSaTab('active')">🟢 Active Visits</button>
+      <button class="hm-tab" id="sa-tab-log" onclick="switchSaTab('log')">📋 Visit Log</button>
+      <button class="hm-tab" id="sa-tab-new" onclick="switchSaTab('new')">＋ New Request</button>
+    </div>
+    <div id="sa-panel-body"></div>
+    <div class="modal-actions" style="margin-top:1rem">
+      <div class="spacer"></div>
+      <button class="btn" onclick="closeShedAccessPanel()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- SHED ACCESS DETAIL VIEW -->
+<div class="modal-overlay" id="sa-detail-overlay" onclick="if(event.target===this)closeSaDetail()">
+  <div class="modal modal-lg">
+    <button class="hm-back-btn" onclick="closeSaDetail()">← Back to list</button>
+    <h2 id="sa-detail-title">Visit Request</h2>
+    <div id="sa-detail-body"></div>
+    <div class="modal-actions" style="margin-top:1rem">
+      <div class="spacer"></div>
+      <button class="btn" onclick="closeSaDetail()">Close</button>
+    </div>
+  </div>
+</div>
+
 <!-- CONFIRM -->
 <div class="del-overlay" id="del-overlay">
   <div class="del-box">
@@ -744,8 +828,12 @@ function translateMaintenanceUI(lang){
   if(btns[0]) btns[0].textContent = ur ? '＋ نیا ٹاسک' : '＋ New Task';
   if(btns[1]) btns[1].innerHTML = ur ? '🤝 ہرڈل میٹنگز' : '🤝 Hurdle Meetings';
   if(btns[2]) btns[2].innerHTML = ur ? '📜 ایس او پیز' : '📜 SOPs';
-  if(btns[3]) btns[3].textContent = ur ? '↓ CSV ایکسپورٹ' : '↓ Export CSV';
-  if(btns[4]) btns[4].textContent = ur ? '✕ فلٹر صاف کریں' : '✕ Clear Filters';
+  if(btns[3]) {
+    const dotEl = btns[3].querySelector('.pending-dot');
+    btns[3].innerHTML = (ur ? '🛡️ شیڈ رسائی' : '🛡️ Shed Access') + (dotEl?dotEl.outerHTML:'<span class="pending-dot" id="shed-pending-dot" style="display:none">0</span>');
+  }
+  if(btns[4]) btns[4].textContent = ur ? '↓ CSV ایکسپورٹ' : '↓ Export CSV';
+  if(btns[5]) btns[5].textContent = ur ? '✕ فلٹر صاف کریں' : '✕ Clear Filters';
 
   var thEn = ['Task ID','Date','Loc','Dept','Issue','Nature','Status','Assigned','Sub-Assigned','Deadline','Days','Latest Comment','Actions'];
   var thUr = ['ٹاسک آئی ڈی','تاریخ','مقام','شعبہ','مسئلہ','نوعیت','حیثیت','تفویض','سب اسائن','ڈیڈ لائن','دن','آخری تبصرہ','کارروائی'];
@@ -812,13 +900,14 @@ const SC = {
 };
 const STATUSES = ['Pending','In Progress','Awaiting Procurement','Payment Pending','Paid','Resolved','Deferred'];
 
-let db, tasksRef, usersRef, meetingsRef, sopsRef, sopLogRef;
-let tasks={}, users={}, meetings={}, sops={}, sopLog={};
-let demoMode=false, demoTasks=[], demoUsers=[], demoMeetings=[], demoSops=[], demoSopLog=[];
+let db, tasksRef, usersRef, meetingsRef, sopsRef, sopLogRef, shedRef;
+let tasks={}, users={}, meetings={}, sops={}, sopLog={}, shedVisits={};
+let demoMode=false, demoTasks=[], demoUsers=[], demoMeetings=[], demoSops=[], demoSopLog=[], demoShedVisits=[];
 let currentUser=null;
 let editTaskKey=null, trailTaskKey=null, confirmCb=null, resetPwKey=null;
 let viewMeetingKey=null, hmTab='list', hmTaskRows=[], hmAttendees={keys:[], guests:[]};
 let viewSopKey=null, editSopKey=null, sopTab='list';
+let saTab='pending', viewSaKey=null;
 let currentLang=window._kdfLang||'en'; window._setModuleLang=function(l){currentLang=l;};
 
 // ── HELPERS ────────────────────────────────────────────────────────────────
@@ -903,14 +992,16 @@ window.useDemoMode=function(){
     demoMeetings=d?.meetings||[];
     demoSops=d?.sops||[];
     demoSopLog=d?.sopLog||[];
+    demoShedVisits=d?.shedVisits||[];
   } catch(e){
-    demoTasks=getSampleTasks(); demoUsers=getSampleUsers(); demoMeetings=[]; demoSops=[]; demoSopLog=[];
+    demoTasks=getSampleTasks(); demoUsers=getSampleUsers(); demoMeetings=[]; demoSops=[]; demoSopLog=[]; demoShedVisits=[];
   }
   demoTasks.forEach(t=>{ if(!t._key) t._key=t.id; });
   demoUsers.forEach(u=>{ if(!u._key) u._key=u.username; });
   demoMeetings.forEach(m=>{ if(!m._key) m._key=m.id||('mtg-'+Date.now()); });
   demoSops.forEach(s=>{ if(!s._key) s._key=s.id||('sop-'+Date.now()); });
   demoSopLog.forEach(l=>{ if(!l._key) l._key=l.id||('log-'+Date.now()); });
+  demoShedVisits.forEach(v=>{ if(!v._key) v._key=v.id||('sa-'+Date.now()); });
   showScreen('login-screen'); checkFirstUser();
 };
 
@@ -932,6 +1023,7 @@ function initFirebase(cfg){
     meetingsRef=ref(db,'maint_meetings');
     sopsRef=ref(db,'maint_sops');
     sopLogRef=ref(db,'maint_sop_log');
+    shedRef=ref(db,'maint_shed_visits');
     setSyncBadge('connecting');
     onValue(usersRef,snap=>{
       users={};
@@ -939,6 +1031,8 @@ function initFirebase(cfg){
       if(currentUser){
         const u=Object.values(users).find(u=>u.username===currentUser.username);
         if(u){ currentUser=u; sessionStorage.setItem(SESS_KEY,JSON.stringify(u)); }
+        // If app is already showing, re-apply feature visibility (superadmin may have toggled them)
+        if(document.getElementById('app-screen').classList.contains('active')) applyFeatureVisibility();
       }
       if(document.getElementById('users-panel-overlay').classList.contains('open')) renderUsersPanel();
       checkFirstUser();
@@ -965,6 +1059,12 @@ function initFirebase(cfg){
       sopLog={};
       snap.forEach(child=>{ sopLog[child.key]={...child.val(),_key:child.key}; });
       if(document.getElementById('sop-panel-overlay').classList.contains('open') && sopTab==='log') renderSopLog();
+    });
+    onValue(shedRef,snap=>{
+      shedVisits={};
+      snap.forEach(child=>{ shedVisits[child.key]={...child.val(),_key:child.key}; });
+      updateShedPendingDot();
+      if(document.getElementById('sa-panel-overlay').classList.contains('open')) renderSaCurrentTab();
     });
     showScreen('login-screen');
   } catch(e){ alert('Firebase error: '+e.message); }
@@ -1023,16 +1123,36 @@ function launchApp(){
   document.getElementById('btn-users').style.display=canManageUsers()?'':'none';
   // #2: DB settings only for superadmin
   document.getElementById('btn-db-settings').style.display=currentUser.role==='superadmin'?'':'none';
+  applyFeatureVisibility();
   showScreen('app-screen');
   renderTable();
   updateMeetingBanner();
+  updateShedPendingDot();
   // Refresh banner every 5 minutes so countdown stays accurate
-  if(!window._kdfMtgInterval) window._kdfMtgInterval=setInterval(updateMeetingBanner, 5*60*1000);
+  if(!window._kdfMtgInterval) window._kdfMtgInterval=setInterval(()=>{ updateMeetingBanner(); updateShedPendingDot(); }, 5*60*1000);
   // non-admin users locked to their location
   if(!isAdmin()){
     const ul=currentUser.locations||(currentUser.location?[currentUser.location]:[]);
     if(ul.length===1) document.getElementById('f-loc').value=ul[0];
   }
+}
+
+// Per-user toolbar feature visibility. Superadmin can hide individual buttons
+// for any user via the Users panel. Default = visible (opt-out model).
+// Superadmin always sees everything regardless of their own settings.
+function applyFeatureVisibility(){
+  const isSuperadmin = currentUser?.role==='superadmin';
+  const features = {
+    'btn-hurdle': currentUser?.hideHurdle,
+    'btn-sops': currentUser?.hideSops,
+    'btn-shed': currentUser?.hideShed
+  };
+  Object.keys(features).forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    const hidden = !isSuperadmin && features[id]===true;
+    el.style.display = hidden?'none':'';
+  });
 }
 
 window.doLogout=function(){
@@ -1349,17 +1469,32 @@ function renderUsersPanel(){
       :'';
 
     // edit/delete perm badges (for non-admin roles)
+    const showShedPerm = currentUser?.role==='superadmin' && (u.role==='admin' || u.role==='head');
+    const showSopPerm = currentUser?.role==='superadmin' && u.role==='admin';
     const permRow=!isAdminRole(u.role)?
       `<div class="user-row-perms" style="margin-top:5px">
         <span style="font-size:10px;color:var(--text3);font-family:'IBM Plex Mono',monospace;margin-right:4px">Rights:</span>
         <span class="perm-badge ${u.canEdit?'perm-on':'perm-off'}" data-key="${u._key}" data-perm="canEdit" data-val="${!!u.canEdit}" onclick="togglePermBtn(this)" title="Toggle edit right">&#x270F; Edit ${u.canEdit?'&#x2713;':'&#x2717;'}</span>
         <span class="perm-badge ${u.canDelete?'perm-on-red':'perm-off'}" data-key="${u._key}" data-perm="canDelete" data-val="${!!u.canDelete}" onclick="togglePermBtn(this)" title="Toggle delete right">&#x1F5D1; Del ${u.canDelete?'&#x2713;':'&#x2717;'}</span>
+        ${u.role==='head' && showShedPerm?`<span class="perm-badge ${u.canApproveShedAccess?'perm-on':'perm-off'}" data-key="${u._key}" data-perm="canApproveShedAccess" data-val="${!!u.canApproveShedAccess}" onclick="togglePermBtn(this)" title="Allow this user to approve shed access requests">&#x1F6E1; Shed Access ${u.canApproveShedAccess?'&#x2713;':'&#x2717;'}</span>`:''}
       </div>`
-      : (u.role==='admin' && currentUser?.role==='superadmin' ?
+      : ((showSopPerm || showShedPerm) ?
       `<div class="user-row-perms" style="margin-top:5px">
         <span style="font-size:10px;color:var(--text3);font-family:'IBM Plex Mono',monospace;margin-right:4px">Rights:</span>
-        <span class="perm-badge ${u.canManageSops?'perm-on':'perm-off'}" data-key="${u._key}" data-perm="canManageSops" data-val="${!!u.canManageSops}" onclick="togglePermBtn(this)" title="Allow this admin to create/edit SOPs">&#x1F4DC; Manage SOPs ${u.canManageSops?'&#x2713;':'&#x2717;'}</span>
+        ${showSopPerm?`<span class="perm-badge ${u.canManageSops?'perm-on':'perm-off'}" data-key="${u._key}" data-perm="canManageSops" data-val="${!!u.canManageSops}" onclick="togglePermBtn(this)" title="Allow this admin to create/edit SOPs">&#x1F4DC; Manage SOPs ${u.canManageSops?'&#x2713;':'&#x2717;'}</span>`:''}
+        ${showShedPerm?`<span class="perm-badge ${u.canApproveShedAccess?'perm-on':'perm-off'}" data-key="${u._key}" data-perm="canApproveShedAccess" data-val="${!!u.canApproveShedAccess}" onclick="togglePermBtn(this)" title="Allow this user to approve shed access requests">&#x1F6E1; Shed Access ${u.canApproveShedAccess?'&#x2713;':'&#x2717;'}</span>`:''}
       </div>` : '');
+
+    // "Visible features" toggles — only superadmin sees these, and only for non-superadmin users
+    // (superadmin always sees all features themselves)
+    const showFeatRow = currentUser?.role==='superadmin' && u.role!=='superadmin';
+    const featRow = showFeatRow ? `
+      <div class="user-row-perms" style="margin-top:5px">
+        <span style="font-size:10px;color:var(--text3);font-family:'IBM Plex Mono',monospace;margin-right:4px">Visible features:</span>
+        <span class="perm-badge ${!u.hideHurdle?'perm-on':'perm-off'}" data-key="${u._key}" data-perm="hideHurdle" data-val="${!!u.hideHurdle}" onclick="toggleFeatBtn(this)" title="Show or hide the Hurdle Meetings button">&#x1F91D; Hurdle ${!u.hideHurdle?'&#x2713;':'&#x2717;'}</span>
+        <span class="perm-badge ${!u.hideSops?'perm-on':'perm-off'}" data-key="${u._key}" data-perm="hideSops" data-val="${!!u.hideSops}" onclick="toggleFeatBtn(this)" title="Show or hide the SOPs button">&#x1F4DC; SOPs ${!u.hideSops?'&#x2713;':'&#x2717;'}</span>
+        <span class="perm-badge ${!u.hideShed?'perm-on':'perm-off'}" data-key="${u._key}" data-perm="hideShed" data-val="${!!u.hideShed}" onclick="toggleFeatBtn(this)" title="Show or hide the Shed Access button">&#x1F6E1; Shed Access ${!u.hideShed?'&#x2713;':'&#x2717;'}</span>
+      </div>` : '';
 
     // inline edit panel
     const roleOpts=ALL_ROLES.map(([v,l])=>`<option value="${v}"${u.role===v?' selected':''}>${l}</option>`).join('');
@@ -1397,6 +1532,7 @@ function renderUsersPanel(){
         <div style="display:flex;gap:4px;flex-shrink:0">${adminBtns}</div>
       </div>
       ${permRow}
+      ${featRow}
       ${editPanel}
     </div>`;
   }).join('');
@@ -1432,16 +1568,37 @@ window.saveUserEdit=async function(key,updates){
 };
 
 window.togglePermBtn=function(btn){ togglePerm(btn.dataset.key, btn.dataset.perm, btn.dataset.val==='true'); };
+
+// Visible features toggles. Click on a badge with hide*=false flips it to hide*=true (hides it).
+// Only superadmin can change these.
+window.toggleFeatBtn=async function(btn){
+  if(currentUser?.role!=='superadmin'){ toast('Only Superadmin can change feature visibility','err'); return; }
+  const key=btn.dataset.key;
+  const perm=btn.dataset.perm; // hideHurdle | hideSops | hideShed
+  const currentlyHidden = btn.dataset.val==='true';
+  const newHidden = !currentlyHidden;
+  if(demoMode){
+    const u=demoUsers.find(u=>u._key===key);
+    if(u){ u[perm]=newHidden; saveDemo(); renderUsersPanel(); }
+  } else {
+    setSyncBadge('saving');
+    await update(ref(db,'maint_users/'+key),{[perm]:newHidden});
+    setSyncBadge('live');
+  }
+  const labels={hideHurdle:'Hurdle Meetings',hideSops:'SOPs',hideShed:'Shed Access'};
+  toast(`${labels[perm]||perm} ${newHidden?'hidden':'visible'} for this user`, newHidden?'info':'ok');
+};
+
 window.togglePerm=async function(key,perm,current){
   if(!isAdmin()){ toast('Only Admin can change permissions','err'); return; }
-  // Only superadmin can grant SOP management to other admins
-  if(perm==='canManageSops' && currentUser.role!=='superadmin'){ toast('Only Superadmin can change SOP permissions','err'); return; }
+  // Only superadmin can grant SOP management or Shed Access approval to other users
+  if((perm==='canManageSops' || perm==='canApproveShedAccess') && currentUser.role!=='superadmin'){ toast('Only Superadmin can change this permission','err'); return; }
   const newVal=!current;
   if(demoMode){ const u=demoUsers.find(u=>u._key===key); if(u){ u[perm]=newVal; saveDemo(); renderUsersPanel(); } return; }
   setSyncBadge('saving');
   await update(ref(db,'maint_users/'+key),{[perm]:newVal});
   setSyncBadge('live');
-  const labels={canEdit:'Edit',canDelete:'Delete',canManageSops:'SOP management'};
+  const labels={canEdit:'Edit',canDelete:'Delete',canManageSops:'SOP management',canApproveShedAccess:'Shed access approval'};
   toast(`${labels[perm]||perm} right ${newVal?'granted':'revoked'}`, newVal?'ok':'info');
 };
 
@@ -1585,6 +1742,8 @@ function fmtMeetingDate(d){
 function updateMeetingBanner(){
   const banner = document.getElementById('meeting-banner');
   if(!banner) return;
+  // If user has hurdle feature hidden, never show the banner
+  if(currentUser?.role!=='superadmin' && currentUser?.hideHurdle){ banner.style.display='none'; return; }
   const nxt = nextHurdleMeeting();
   if(!nxt){ banner.style.display='none'; return; }
   const now = new Date();
@@ -1622,6 +1781,7 @@ window.dismissMeetingBanner = function(){
 };
 
 window.openHurdleMeetingsPanel=function(){
+  if(currentUser?.role!=='superadmin' && currentUser?.hideHurdle){ toast('This feature is not available for your account','err'); return; }
   hmTab='list';
   document.getElementById('hm-panel-overlay').classList.add('open');
   document.getElementById('hm-tab-list').classList.add('active');
@@ -2084,6 +2244,7 @@ async function logSopAction(action, sopKey, sopTitle, extra){
 
 window.openSopsPanel=function(){
   if(!canViewSops()){ toast('Please sign in.','err'); return; }
+  if(currentUser?.role!=='superadmin' && currentUser?.hideSops){ toast('This feature is not available for your account','err'); return; }
   sopTab='list';
   document.getElementById('sop-panel-overlay').classList.add('open');
   document.getElementById('sop-tab-list').classList.add('active');
@@ -2304,8 +2465,667 @@ function renderSopLog(){
     + (log.length>200?'<div class="sop-empty" style="padding:10px">Showing latest 200 entries.</div>':'');
 }
 
+// ── SHED ACCESS / BIOSECURITY ─────────────────────────────────────────────
+// Predefined shed areas with biosecurity risk tier.
+// Risk tiers: high = direct animal contact / immunocompromised animals
+//             medium = feed/storage areas, indirect contact possible
+//             low = perimeter, offices, parking
+const SHED_AREAS = [
+  {id:'calf-shed', label:'Calf Shed / Calf Housing', risk:'high'},
+  {id:'milking-parlour', label:'Milking Parlour', risk:'high'},
+  {id:'milk-tank-room', label:'Milk Tank / Cooling Room', risk:'high'},
+  {id:'maternity-pen', label:'Maternity / Calving Pen', risk:'high'},
+  {id:'sick-bay', label:'Sick Bay / Isolation', risk:'high'},
+  {id:'lactating-shed', label:'Lactating Cow Shed', risk:'high'},
+  {id:'dry-cow-shed', label:'Dry Cow Shed', risk:'medium'},
+  {id:'heifer-shed', label:'Heifer Shed', risk:'medium'},
+  {id:'fodder-storage', label:'Fodder / Silage Storage', risk:'medium'},
+  {id:'feed-mixing', label:'Feed Mixing Area', risk:'medium'},
+  {id:'manure-area', label:'Manure / Compost Area', risk:'medium'},
+  {id:'workshop', label:'Workshop / Mechanical Yard', risk:'low'},
+  {id:'office', label:'Farm Office', risk:'low'},
+  {id:'perimeter', label:'Perimeter / Outer Compound', risk:'low'},
+  {id:'staff-quarters', label:'Staff Quarters', risk:'low'}
+];
+const SA_STATUS_LABELS = {
+  pending:'Pending Approval', approved:'Approved', rejected:'Rejected',
+  'checked-in':'Checked In', completed:'Completed', overdue:'Overdue'
+};
 
-function saveDemo(){ localStorage.setItem(DEMO_KEY,JSON.stringify({tasks:demoTasks,users:demoUsers,meetings:demoMeetings,sops:demoSops,sopLog:demoSopLog})); }
+function allShedVisits(){ return demoMode?demoShedVisits.slice():Object.values(shedVisits).slice(); }
+function getShedVisit(k){ return demoMode?demoShedVisits.find(v=>v._key===k):shedVisits[k]; }
+function shedAreaById(id){ return SHED_AREAS.find(a=>a.id===id); }
+
+// Compute live status (handles auto-overdue)
+function effectiveSaStatus(v){
+  if(!v) return '';
+  if(v.status==='checked-in'){
+    const expectedEnd = (v.checkedInAt||0) + (v.estimatedMinutes||60)*60000 + 30*60000; // +30 min buffer
+    if(Date.now() > expectedEnd) return 'overdue';
+  }
+  return v.status;
+}
+
+function canApproveShedAccess(){
+  if(!currentUser) return false;
+  if(currentUser.role==='superadmin') return true;
+  if(currentUser.role==='admin') return true;  // admins implicitly can approve
+  if(currentUser.role==='head' && currentUser.canApproveShedAccess===true) return true;
+  return false;
+}
+
+function pendingShedCountForMe(){
+  const myLocs = currentUser?.locations || (currentUser?.location?[currentUser.location]:[]);
+  return allShedVisits().filter(v=>{
+    if(v.status!=='pending') return false;
+    if(!canApproveShedAccess()) return false;
+    if(currentUser.role==='superadmin' || currentUser.role==='admin') return true; // see all locations
+    return myLocs.includes(v.location);
+  }).length;
+}
+
+function updateShedPendingDot(){
+  const dot = document.getElementById('shed-pending-dot');
+  if(!dot) return;
+  // If shed feature is hidden for this user, suppress the dot
+  if(currentUser?.role!=='superadmin' && currentUser?.hideShed){ dot.style.display='none'; return; }
+  const n = pendingShedCountForMe();
+  if(n>0){ dot.textContent=String(n); dot.style.display=''; }
+  else { dot.style.display='none'; }
+}
+
+window.openShedAccessPanel=function(){
+  if(!currentUser){ toast('Please sign in.','err'); return; }
+  if(currentUser?.role!=='superadmin' && currentUser?.hideShed){ toast('This feature is not available for your account','err'); return; }
+  saTab='pending';
+  document.getElementById('sa-panel-overlay').classList.add('open');
+  document.querySelectorAll('.hm-tabs .hm-tab').forEach(t=>{}); // no-op
+  document.getElementById('sa-tab-pending').classList.add('active');
+  document.getElementById('sa-tab-active').classList.remove('active');
+  document.getElementById('sa-tab-log').classList.remove('active');
+  document.getElementById('sa-tab-new').classList.remove('active');
+  renderSaCurrentTab();
+};
+window.closeShedAccessPanel=function(){
+  document.getElementById('sa-panel-overlay').classList.remove('open');
+};
+window.switchSaTab=function(tab){
+  saTab=tab;
+  document.getElementById('sa-tab-pending').classList.toggle('active', tab==='pending');
+  document.getElementById('sa-tab-active').classList.toggle('active', tab==='active');
+  document.getElementById('sa-tab-log').classList.toggle('active', tab==='log');
+  document.getElementById('sa-tab-new').classList.toggle('active', tab==='new');
+  renderSaCurrentTab();
+};
+function renderSaCurrentTab(){
+  if(saTab==='pending') renderSaPending();
+  else if(saTab==='active') renderSaActive();
+  else if(saTab==='log') renderSaLog();
+  else if(saTab==='new') renderSaNewForm();
+  // Update header pending count
+  const cntEl = document.getElementById('sa-pending-count');
+  if(cntEl){ const n=pendingShedCountForMe(); cntEl.textContent = n>0?`(${n})`:''; }
+}
+
+function renderSaPending(){
+  const body=document.getElementById('sa-panel-body');
+  const list = allShedVisits()
+    .filter(v=>v.status==='pending')
+    .sort((a,b)=>(b.requestedAt||0)-(a.requestedAt||0));
+  if(!list.length){
+    body.innerHTML='<div class="sa-empty">No pending requests. ✓</div>';
+    return;
+  }
+  const canAct = canApproveShedAccess();
+  const note = canAct
+    ? '<div class="sa-warn-box"><span>📝</span><span>Review each request, decide based on biosecurity risk and operational fit, then approve or reject.</span></div>'
+    : '<div class="sa-warn-box"><span>👁</span><span>Read-only view. Only designated approvers can accept or reject requests.</span></div>';
+  body.innerHTML = note + '<div class="sa-list">' + list.map(saCardHtml).join('') + '</div>';
+}
+
+function renderSaActive(){
+  const body=document.getElementById('sa-panel-body');
+  const list = allShedVisits()
+    .filter(v=>{ const s=effectiveSaStatus(v); return s==='checked-in' || s==='overdue' || v.status==='approved'; })
+    .sort((a,b)=>(b.approvedAt||b.requestedAt||0)-(a.approvedAt||a.requestedAt||0));
+  if(!list.length){ body.innerHTML='<div class="sa-empty">No active visits.</div>'; return; }
+  body.innerHTML = '<div class="sa-list">' + list.map(saCardHtml).join('') + '</div>';
+}
+
+function renderSaLog(){
+  const body=document.getElementById('sa-panel-body');
+  const all = allShedVisits().sort((a,b)=>(b.requestedAt||0)-(a.requestedAt||0));
+  const areaOpts = ['<option value="">All areas</option>'].concat(SHED_AREAS.map(a=>`<option value="${a.id}">${escAttr(a.label)}</option>`)).join('');
+  const statusOpts = ['<option value="">All statuses</option>'].concat(Object.keys(SA_STATUS_LABELS).map(s=>`<option value="${s}">${escAttr(SA_STATUS_LABELS[s])}</option>`)).join('');
+  body.innerHTML = `
+    <div class="sa-filter-row">
+      <select id="sa-flt-area">${areaOpts}</select>
+      <select id="sa-flt-status">${statusOpts}</select>
+      <input type="date" id="sa-flt-from" title="From date">
+      <input type="date" id="sa-flt-to" title="To date">
+      <input type="text" id="sa-flt-q" placeholder="Search visitor or work…" style="flex:1;min-width:140px">
+      <button class="btn btn-sm" onclick="renderSaLogFiltered()">Filter</button>
+      <button class="btn btn-sm" onclick="exportShedLogCsv()">↓ CSV</button>
+    </div>
+    <div id="sa-log-list">${renderSaLogList(all)}</div>`;
+  // attach live filter listeners
+  ['sa-flt-area','sa-flt-status','sa-flt-from','sa-flt-to','sa-flt-q'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.addEventListener('input', renderSaLogFiltered);
+  });
+}
+window.renderSaLogFiltered=function(){
+  const a=document.getElementById('sa-flt-area')?.value||'';
+  const s=document.getElementById('sa-flt-status')?.value||'';
+  const fr=document.getElementById('sa-flt-from')?.value||'';
+  const to=document.getElementById('sa-flt-to')?.value||'';
+  const q=(document.getElementById('sa-flt-q')?.value||'').toLowerCase().trim();
+  const list = allShedVisits()
+    .filter(v=>{
+      if(a && v.areaId!==a) return false;
+      const eff = effectiveSaStatus(v);
+      if(s && eff!==s && v.status!==s) return false;
+      if(fr && (v.requestedAt||0) < new Date(fr).getTime()) return false;
+      if(to){ const toEnd=new Date(to); toEnd.setHours(23,59,59,999); if((v.requestedAt||0) > toEnd.getTime()) return false; }
+      if(q){
+        const hay=[v.visitorName,v.visitorOrg,v.workNature,v.areaLabel].join(' ').toLowerCase();
+        if(!hay.includes(q)) return false;
+      }
+      return true;
+    })
+    .sort((a,b)=>(b.requestedAt||0)-(a.requestedAt||0));
+  const ll=document.getElementById('sa-log-list'); if(ll) ll.innerHTML=renderSaLogList(list);
+};
+function renderSaLogList(list){
+  if(!list.length) return '<div class="sa-empty">No visits match your filters.</div>';
+  return '<div class="sa-list">' + list.map(saCardHtml).join('') + '</div>';
+}
+
+function saCardHtml(v){
+  const eff = effectiveSaStatus(v);
+  const statusClass = 'sa-status-'+eff;
+  const riskClass = 'risk-'+(v.risk||'low');
+  const requestedAt = v.requestedAt ? new Date(v.requestedAt).toLocaleString('en-PK',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : '—';
+  return `<div class="sa-item ${riskClass}" onclick="openSaDetail('${v._key}')">
+    <div class="sa-item-head">
+      <div style="flex:1;min-width:0">
+        <div class="sa-item-title">${escAttr(v.visitorName||'Visitor')}${v.visitorOrg?' <span style="color:var(--text2);font-weight:400;font-size:12px">· '+escAttr(v.visitorOrg)+'</span>':''}<span class="sa-risk-badge sa-risk-${v.risk||'low'}">${(v.risk||'low').toUpperCase()}</span></div>
+        <div class="sa-item-meta">${escAttr(v.areaLabel||'—')} · ${escAttr(v.location||'—')} · Requested ${requestedAt}</div>
+        <div class="sa-item-detail">${escAttr((v.workNature||'').slice(0,140))}${(v.workNature||'').length>140?'…':''}</div>
+      </div>
+      <span class="sa-status-badge ${statusClass}">${escAttr(SA_STATUS_LABELS[eff]||eff)}</span>
+    </div>
+  </div>`;
+}
+
+function renderSaNewForm(){
+  const body=document.getElementById('sa-panel-body');
+  const today = new Date().toISOString().slice(0,10);
+  const areaOpts = SHED_AREAS.map(a=>`<option value="${a.id}" data-risk="${a.risk}">${escAttr(a.label)} ${a.risk==='high'?'⚠':''}</option>`).join('');
+  const locs = (currentUser.locations||[currentUser.location||'K1']);
+  const locOpts = locs.map(l=>`<option value="${l}">${escAttr(l)}</option>`).join('');
+  // prefill internal user with self by default
+  const myName = currentUser.name||'';
+  body.innerHTML = `
+    <div class="sa-warn-box"><span>🛡️</span><span>Shed access requests protect biosecurity. Provide accurate details — your request goes to the designated approver before you can enter.</span></div>
+
+    <div class="sa-section-label">Visitor Type</div>
+    <div class="sa-visitor-type">
+      <label><input type="radio" name="sa-vtype" value="internal" checked onchange="saOnTypeChange()"> Internal Staff</label>
+      <label><input type="radio" name="sa-vtype" value="external" onchange="saOnTypeChange()"> External Contractor / Visitor</label>
+    </div>
+
+    <div id="sa-internal-fields">
+      <div class="sa-meta-row">
+        <div class="form-field"><label>Visitor Name</label><input type="text" id="sa-name" value="${escAttr(myName)}" placeholder="Your name"></div>
+        <div class="form-field"><label>Department</label><select id="sa-dept">${HURDLE_DEPTS.map(d=>`<option value="${d}">${d}</option>`).join('')}</select></div>
+      </div>
+    </div>
+    <div id="sa-external-fields" style="display:none">
+      <div class="sa-meta-row-3">
+        <div class="form-field"><label>Visitor Name</label><input type="text" id="sa-ext-name" placeholder="Full name"></div>
+        <div class="form-field"><label>Organization / Company</label><input type="text" id="sa-ext-org" placeholder="e.g. ABC Electrical Services"></div>
+        <div class="form-field"><label>Contact Phone</label><input type="text" id="sa-ext-phone" placeholder="03xx-xxxxxxx"></div>
+      </div>
+      <div class="sa-meta-row">
+        <div class="form-field"><label>National ID / CNIC (optional)</label><input type="text" id="sa-ext-cnic" placeholder="xxxxx-xxxxxxx-x"></div>
+        <div class="form-field"><label>Vehicle Plate (if any)</label><input type="text" id="sa-ext-vehicle" placeholder="ABC-123"></div>
+      </div>
+    </div>
+
+    <div class="sa-meta-row-3">
+      <div class="form-field"><label>Location</label><select id="sa-location">${locOpts}</select></div>
+      <div class="form-field"><label>Area / Shed</label><select id="sa-area" onchange="saOnAreaChange()">${areaOpts}</select></div>
+      <div class="form-field"><label>Visit Date</label><input type="date" id="sa-date" value="${today}" min="${today}"></div>
+    </div>
+    <div class="sa-meta-row-3">
+      <div class="form-field"><label>Estimated Start Time</label><input type="time" id="sa-start-time" value="09:00"></div>
+      <div class="form-field"><label>Estimated Duration (minutes)</label><input type="number" id="sa-duration" value="60" min="5" step="5"></div>
+      <div class="form-field"><label>Risk Tier (auto)</label><input type="text" id="sa-risk-display" readonly style="font-weight:600"></div>
+    </div>
+
+    <div id="sa-risk-warn"></div>
+
+    <div class="form-field full"><label>Nature of Work / Reason for Visit</label>
+      <div class="mic-wrap"><textarea id="sa-work" placeholder="Describe what you'll be doing — e.g. repair leaking pipe in milking parlour wash bay" rows="3"></textarea><button type="button" class="mic-btn" onclick="startMic('sa-work')" title="Dictate">🎤</button></div>
+    </div>
+
+    <div class="form-field full"><label>Tools / Equipment to be brought in</label>
+      <input type="text" id="sa-tools" placeholder="e.g. drill, ladder, pipe wrench (list anything entering the shed)">
+    </div>
+
+    <div class="sa-meta-row">
+      <div class="form-field"><label>Last farm/dairy visited (within 24 hrs)</label><input type="text" id="sa-last-visit" placeholder="None / Name of farm if applicable"></div>
+      <div class="form-field"><label>Will visitor touch animals?</label><select id="sa-touch-animals"><option value="no">No</option><option value="yes">Yes — direct contact required</option></select></div>
+    </div>
+
+    <div class="sa-section">
+      <div class="sa-section-label">Biosecurity Acknowledgment (required)</div>
+      <div class="sa-checks">
+        <label class="sa-check"><input type="checkbox" id="sa-chk-ppe"> <span>I will wear farm-issued PPE (boots, coveralls) and pass through the foot-dip on entry.</span></label>
+        <label class="sa-check"><input type="checkbox" id="sa-chk-tools"> <span>Any tools brought in will be cleaned / disinfected before entry.</span></label>
+        <label class="sa-check"><input type="checkbox" id="sa-chk-honest"> <span>The information above (last farm visited, animal contact) is accurate.</span></label>
+        <label class="sa-check"><input type="checkbox" id="sa-chk-rules"> <span>I will follow farm biosecurity rules and shed in-charge instructions throughout the visit.</span></label>
+      </div>
+    </div>
+
+    <div class="modal-actions" style="margin-top:14px">
+      <div class="spacer"></div>
+      <button class="btn btn-primary" onclick="submitShedRequest()">Submit Request</button>
+    </div>`;
+  saOnAreaChange();
+}
+
+window.saOnTypeChange=function(){
+  const isExt = document.querySelector('input[name="sa-vtype"]:checked').value==='external';
+  document.getElementById('sa-internal-fields').style.display = isExt?'none':'';
+  document.getElementById('sa-external-fields').style.display = isExt?'':'none';
+};
+
+window.saOnAreaChange=function(){
+  const sel = document.getElementById('sa-area');
+  if(!sel) return;
+  const opt = sel.options[sel.selectedIndex];
+  const risk = opt?.dataset?.risk||'low';
+  const display = document.getElementById('sa-risk-display');
+  if(display){
+    display.value = risk.toUpperCase();
+    display.style.color = risk==='high'?'#fff':(risk==='medium'?'#fff':'#fff');
+    display.style.background = risk==='high'?'var(--red)':(risk==='medium'?'var(--amber)':'var(--green)');
+  }
+  const warn = document.getElementById('sa-risk-warn');
+  if(warn){
+    if(risk==='high'){
+      warn.innerHTML = '<div class="sa-warn-box danger"><span>⚠️</span><span><strong>High-risk area.</strong> This area houses sensitive animals or critical biosecurity zones. Approval will be carefully reviewed and you may be asked to wait outside scheduled feeding/milking times.</span></div>';
+    } else if(risk==='medium'){
+      warn.innerHTML = '<div class="sa-warn-box"><span>⚠️</span><span><strong>Medium-risk area.</strong> Standard biosecurity protocols apply.</span></div>';
+    } else {
+      warn.innerHTML = '';
+    }
+  }
+};
+
+window.submitShedRequest=async function(){
+  const isExt = document.querySelector('input[name="sa-vtype"]:checked').value==='external';
+  let visitorName='', visitorOrg='', visitorContact={}, visitorDept='';
+  if(isExt){
+    visitorName = document.getElementById('sa-ext-name').value.trim();
+    visitorOrg = document.getElementById('sa-ext-org').value.trim();
+    visitorContact = {
+      phone: document.getElementById('sa-ext-phone').value.trim(),
+      cnic: document.getElementById('sa-ext-cnic').value.trim(),
+      vehicle: document.getElementById('sa-ext-vehicle').value.trim()
+    };
+    if(!visitorName){ toast('Visitor name is required','err'); return; }
+    if(!visitorOrg){ toast('Organization/company is required for external visitors','err'); return; }
+  } else {
+    visitorName = document.getElementById('sa-name').value.trim();
+    visitorDept = document.getElementById('sa-dept').value;
+    if(!visitorName){ toast('Your name is required','err'); return; }
+  }
+  const location = document.getElementById('sa-location').value;
+  const areaId = document.getElementById('sa-area').value;
+  const area = shedAreaById(areaId);
+  const date = document.getElementById('sa-date').value;
+  const startTime = document.getElementById('sa-start-time').value;
+  const duration = parseInt(document.getElementById('sa-duration').value)||60;
+  const work = document.getElementById('sa-work').value.trim();
+  const tools = document.getElementById('sa-tools').value.trim();
+  const lastVisit = document.getElementById('sa-last-visit').value.trim();
+  const touchAnimals = document.getElementById('sa-touch-animals').value;
+  if(!work){ toast('Nature of work is required','err'); return; }
+  if(!date){ toast('Visit date is required','err'); return; }
+  // require all 4 acknowledgments
+  const checks=['sa-chk-ppe','sa-chk-tools','sa-chk-honest','sa-chk-rules'];
+  for(const id of checks){ if(!document.getElementById(id).checked){ toast('Please acknowledge all biosecurity items','err'); return; } }
+  // soft warning for recent farm visits
+  const visitedRecent = lastVisit && lastVisit.toLowerCase()!=='none' && lastVisit.toLowerCase()!=='n/a' && lastVisit.toLowerCase()!=='no';
+  // Compose scheduled timestamp
+  let scheduledStart=Date.now();
+  if(date && startTime){
+    const [y,m,d]=date.split('-').map(Number);
+    const [h,mi]=startTime.split(':').map(Number);
+    scheduledStart=new Date(y,m-1,d,h,mi,0,0).getTime();
+  }
+  const now=Date.now();
+  const visit = {
+    visitorType: isExt?'external':'internal',
+    visitorName,
+    visitorOrg: visitorOrg||'',
+    visitorContact,
+    visitorDept,
+    visitorUserKey: isExt ? '' : (currentUser._key||currentUser.username),
+    location,
+    areaId,
+    areaLabel: area?.label||'',
+    risk: area?.risk||'low',
+    workNature: work,
+    tools,
+    lastFarmVisited: lastVisit||'None',
+    touchAnimals,
+    scheduledStart,
+    estimatedMinutes: duration,
+    acknowledgments: {ppe:true, tools:true, honest:true, rules:true},
+    status: 'pending',
+    requestedBy: currentUser.name,
+    requestedByKey: currentUser._key||currentUser.username,
+    requestedAt: now,
+    trail: [{
+      action:'submitted',
+      desc:'Visit request submitted'+(visitedRecent?' (visitor reported recent farm contact — please review carefully)':''),
+      user: currentUser.name,
+      role: ROLES[currentUser.role]||currentUser.role||'',
+      ts: now
+    }]
+  };
+  if(visitedRecent){
+    visit.flags = visit.flags||[];
+    visit.flags.push('recent-farm-visit');
+  }
+  if(area?.risk==='high'){
+    visit.flags = visit.flags||[];
+    visit.flags.push('high-risk-area');
+  }
+  if(touchAnimals==='yes'){
+    visit.flags = visit.flags||[];
+    visit.flags.push('animal-contact');
+  }
+  if(demoMode){
+    const k='sa-'+now;
+    visit._key=k;
+    demoShedVisits.unshift(visit);
+    saveDemo();
+  } else {
+    setSyncBadge('saving');
+    await push(shedRef, visit);
+    setSyncBadge('live');
+  }
+  toast('Request submitted ✓ Awaiting approval','ok');
+  saTab='pending';
+  switchSaTab('pending');
+};
+
+window.openSaDetail=function(key){
+  const v=getShedVisit(key); if(!v) return;
+  viewSaKey=key;
+  const eff=effectiveSaStatus(v);
+  document.getElementById('sa-detail-title').innerHTML = `${escAttr(v.visitorName||'Visit')} <span class="sa-status-badge sa-status-${eff}">${escAttr(SA_STATUS_LABELS[eff]||eff)}</span> <span class="sa-risk-badge sa-risk-${v.risk||'low'}">${(v.risk||'low').toUpperCase()}</span>`;
+
+  const requestedAt = v.requestedAt ? new Date(v.requestedAt).toLocaleString('en-PK') : '—';
+  const scheduledStart = v.scheduledStart ? new Date(v.scheduledStart).toLocaleString('en-PK') : '—';
+  const checkedInAt = v.checkedInAt ? new Date(v.checkedInAt).toLocaleString('en-PK') : null;
+  const checkedOutAt = v.checkedOutAt ? new Date(v.checkedOutAt).toLocaleString('en-PK') : null;
+
+  const flagBox = (v.flags||[]).length
+    ? `<div class="sa-warn-box danger"><span>🚩</span><span><strong>Flags:</strong> ${v.flags.map(f=>{
+        if(f==='recent-farm-visit') return 'Recent farm contact reported';
+        if(f==='high-risk-area') return 'High-risk area';
+        if(f==='animal-contact') return 'Animal contact required';
+        return f;
+      }).join(' · ')}</span></div>`
+    : '';
+
+  const visitorBlock = v.visitorType==='external'
+    ? `<div class="sa-section">
+        <div class="sa-section-label">Visitor (External)</div>
+        <div class="sa-section-value"><strong>${escAttr(v.visitorName)}</strong> — ${escAttr(v.visitorOrg||'—')}
+        ${v.visitorContact?.phone?'<br>📞 '+escAttr(v.visitorContact.phone):''}
+        ${v.visitorContact?.cnic?'<br>🪪 '+escAttr(v.visitorContact.cnic):''}
+        ${v.visitorContact?.vehicle?'<br>🚗 '+escAttr(v.visitorContact.vehicle):''}</div>
+       </div>`
+    : `<div class="sa-section">
+        <div class="sa-section-label">Visitor (Internal Staff)</div>
+        <div class="sa-section-value"><strong>${escAttr(v.visitorName)}</strong>${v.visitorDept?' · '+escAttr(v.visitorDept):''}</div>
+       </div>`;
+
+  const trailHtml = (v.trail||[]).map(t=>`<div class="sa-trail">
+    <strong>${escAttr(t.action||'event')}</strong> · ${escAttr(t.user||'—')} (${escAttr(t.role||'')}) · ${t.ts?new Date(t.ts).toLocaleString('en-PK'):'—'}
+    ${t.desc?'<br>'+escAttr(t.desc):''}
+    ${t.note?'<br><em>'+escAttr(t.note)+'</em>':''}
+  </div>`).join('');
+
+  // Action buttons depend on status & permissions
+  const isApprover = canApproveShedAccess();
+  const isVisitor = v.requestedByKey===(currentUser._key||currentUser.username) || v.visitorUserKey===(currentUser._key||currentUser.username);
+  let actions = '';
+  if(v.status==='pending' && isApprover){
+    actions = `<button class="btn btn-sm" style="background:var(--green);color:#fff;border-color:var(--green)" onclick="approveSa('${key}')">✓ Approve</button>
+               <button class="btn btn-sm" style="background:var(--red);color:#fff;border-color:var(--red)" onclick="rejectSa('${key}')">✕ Reject</button>`;
+  } else if(v.status==='approved' && (isVisitor || isApprover)){
+    actions = `<button class="btn btn-sm" style="background:var(--purple);color:#fff;border-color:var(--purple)" onclick="checkInSa('${key}')">→ Check In (entering now)</button>`;
+  } else if(v.status==='checked-in' && (isVisitor || isApprover)){
+    actions = `<button class="btn btn-sm" style="background:var(--green);color:#fff;border-color:var(--green)" onclick="checkOutSa('${key}')">← Check Out (leaving now)</button>`;
+  }
+
+  document.getElementById('sa-detail-body').innerHTML = `
+    ${flagBox}
+    ${visitorBlock}
+    <div class="sa-section">
+      <div class="sa-section-label">Visit Details</div>
+      <div class="sa-section-value">
+        <strong>Area:</strong> ${escAttr(v.areaLabel||'—')} (${(v.risk||'low').toUpperCase()} risk)<br>
+        <strong>Location:</strong> ${escAttr(v.location||'—')}<br>
+        <strong>Scheduled:</strong> ${scheduledStart}<br>
+        <strong>Estimated duration:</strong> ${v.estimatedMinutes||'—'} minutes
+      </div>
+    </div>
+    <div class="sa-section">
+      <div class="sa-section-label">Nature of Work</div>
+      <div class="sa-section-value">${escAttr(v.workNature||'—')}</div>
+    </div>
+    ${v.tools?`<div class="sa-section"><div class="sa-section-label">Tools / Equipment</div><div class="sa-section-value">${escAttr(v.tools)}</div></div>`:''}
+    <div class="sa-section">
+      <div class="sa-section-label">Biosecurity Disclosure</div>
+      <div class="sa-section-value">
+        Last farm visited (24h): <strong>${escAttr(v.lastFarmVisited||'None')}</strong><br>
+        Will touch animals: <strong>${v.touchAnimals==='yes'?'Yes':'No'}</strong>
+      </div>
+    </div>
+    ${checkedInAt?`<div class="sa-section"><div class="sa-section-label">Check In / Check Out</div><div class="sa-section-value">
+      Checked in: <strong>${checkedInAt}</strong><br>
+      ${checkedOutAt?'Checked out: <strong>'+checkedOutAt+'</strong> · Duration: '+saDuration(v.checkedInAt, v.checkedOutAt):'<em>Not yet checked out</em>'}
+    </div></div>`:''}
+    <div class="sa-section">
+      <div class="sa-section-label">Audit Trail</div>
+      ${trailHtml}
+    </div>
+    <div class="sa-section">
+      <div class="sa-section-label">Request Info</div>
+      <div class="sa-section-value">
+        Requested by ${escAttr(v.requestedBy||'—')} on ${requestedAt}
+        ${v.approvedBy?'<br>'+(v.status==='rejected'?'Rejected':'Approved')+' by '+escAttr(v.approvedBy)+(v.approvedAt?' on '+new Date(v.approvedAt).toLocaleString('en-PK'):''):''}
+        ${v.rejectionReason?'<br><em>Reason: '+escAttr(v.rejectionReason)+'</em>':''}
+      </div>
+    </div>
+    <div class="sa-action-bar">${actions||'<span style="color:var(--text3);font-size:12px;font-style:italic">No actions available at this stage.</span>'}</div>`;
+
+  document.getElementById('sa-detail-overlay').classList.add('open');
+};
+window.closeSaDetail=function(){
+  document.getElementById('sa-detail-overlay').classList.remove('open');
+  viewSaKey=null;
+};
+
+function saDuration(start, end){
+  if(!start||!end) return '—';
+  const mins = Math.round((end-start)/60000);
+  if(mins<60) return mins+' min';
+  const h=Math.floor(mins/60), m=mins%60;
+  return `${h}h ${m}m`;
+}
+
+async function saUpdate(key, updates, trailEntry){
+  const v=getShedVisit(key); if(!v) return;
+  const newTrail = (v.trail||[]).slice();
+  if(trailEntry) newTrail.push(trailEntry);
+  const merged = {...updates, trail:newTrail};
+  if(demoMode){
+    const i=demoShedVisits.findIndex(x=>x._key===key);
+    if(i>=0){ demoShedVisits[i]={...demoShedVisits[i],...merged}; saveDemo(); }
+  } else {
+    setSyncBadge('saving');
+    await update(ref(db,'maint_shed_visits/'+key), merged);
+    setSyncBadge('live');
+  }
+}
+
+window.approveSa=function(key){
+  if(!canApproveShedAccess()){ toast('Permission denied','err'); return; }
+  const v=getShedVisit(key); if(!v) return;
+  const note = prompt('Approval note (optional — any conditions or instructions for the visitor):','');
+  if(note===null) return; // user cancelled
+  const now=Date.now();
+  saUpdate(key, {
+    status:'approved',
+    approvedBy: currentUser.name,
+    approvedByKey: currentUser._key||currentUser.username,
+    approvedAt: now,
+    approvalNote: note||''
+  }, {
+    action:'approved',
+    desc:'Request approved'+(note?' with conditions':''),
+    note: note||'',
+    user: currentUser.name,
+    role: ROLES[currentUser.role]||currentUser.role||'',
+    ts: now
+  }).then(()=>{
+    toast('Request approved ✓','ok');
+    if(viewSaKey===key) openSaDetail(key);
+    renderSaCurrentTab();
+  });
+};
+
+window.rejectSa=function(key){
+  if(!canApproveShedAccess()){ toast('Permission denied','err'); return; }
+  const reason = prompt('Reason for rejection (required):','');
+  if(reason===null) return;
+  if(!reason.trim()){ toast('A reason is required to reject a request','err'); return; }
+  const now=Date.now();
+  saUpdate(key, {
+    status:'rejected',
+    approvedBy: currentUser.name,
+    approvedByKey: currentUser._key||currentUser.username,
+    approvedAt: now,
+    rejectionReason: reason.trim()
+  }, {
+    action:'rejected',
+    desc:'Request rejected',
+    note: reason.trim(),
+    user: currentUser.name,
+    role: ROLES[currentUser.role]||currentUser.role||'',
+    ts: now
+  }).then(()=>{
+    toast('Request rejected','info');
+    if(viewSaKey===key) openSaDetail(key);
+    renderSaCurrentTab();
+  });
+};
+
+window.checkInSa=function(key){
+  const v=getShedVisit(key); if(!v) return;
+  const now=Date.now();
+  saUpdate(key, {
+    status:'checked-in',
+    checkedInAt: now,
+    checkedInBy: currentUser.name
+  }, {
+    action:'checked-in',
+    desc:'Visitor entered the shed',
+    user: currentUser.name,
+    role: ROLES[currentUser.role]||currentUser.role||'',
+    ts: now
+  }).then(()=>{
+    toast('Checked in ✓','ok');
+    if(viewSaKey===key) openSaDetail(key);
+    renderSaCurrentTab();
+  });
+};
+
+window.checkOutSa=function(key){
+  const v=getShedVisit(key); if(!v) return;
+  const now=Date.now();
+  const note = prompt('Visit notes (optional — what was done, anything noted):','');
+  if(note===null) return;
+  const duration = saDuration(v.checkedInAt, now);
+  saUpdate(key, {
+    status:'completed',
+    checkedOutAt: now,
+    checkedOutBy: currentUser.name,
+    completionNote: note||''
+  }, {
+    action:'completed',
+    desc:'Visitor exited · Duration: '+duration,
+    note: note||'',
+    user: currentUser.name,
+    role: ROLES[currentUser.role]||currentUser.role||'',
+    ts: now
+  }).then(()=>{
+    toast('Checked out ✓ Visit completed','ok');
+    if(viewSaKey===key) openSaDetail(key);
+    renderSaCurrentTab();
+  });
+};
+
+window.exportShedLogCsv=function(){
+  const list = allShedVisits().sort((a,b)=>(b.requestedAt||0)-(a.requestedAt||0));
+  if(!list.length){ toast('Nothing to export','err'); return; }
+  const headers=['Requested','Visitor','Type','Org','Location','Area','Risk','Status','Scheduled','Est.Mins','Checked-In','Checked-Out','Duration','Work','Tools','Last-Farm','Touch-Animals','Approved-By','Approved-At','Reject-Reason'];
+  const rows = list.map(v=>{
+    const eff = effectiveSaStatus(v);
+    return [
+      v.requestedAt?new Date(v.requestedAt).toISOString():'',
+      v.visitorName||'',
+      v.visitorType||'',
+      v.visitorOrg||'',
+      v.location||'',
+      v.areaLabel||'',
+      v.risk||'',
+      SA_STATUS_LABELS[eff]||eff||'',
+      v.scheduledStart?new Date(v.scheduledStart).toISOString():'',
+      v.estimatedMinutes||'',
+      v.checkedInAt?new Date(v.checkedInAt).toISOString():'',
+      v.checkedOutAt?new Date(v.checkedOutAt).toISOString():'',
+      saDuration(v.checkedInAt, v.checkedOutAt),
+      (v.workNature||'').replace(/\n/g,' '),
+      v.tools||'',
+      v.lastFarmVisited||'',
+      v.touchAnimals||'',
+      v.approvedBy||'',
+      v.approvedAt?new Date(v.approvedAt).toISOString():'',
+      v.rejectionReason||''
+    ];
+  });
+  const csv = [headers, ...rows].map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv],{type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `shed-access-log-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
+
+function saveDemo(){ localStorage.setItem(DEMO_KEY,JSON.stringify({tasks:demoTasks,users:demoUsers,meetings:demoMeetings,sops:demoSops,sopLog:demoSopLog,shedVisits:demoShedVisits})); }
 function getSampleTasks(){
   const d=n=>{ const t=new Date(); t.setDate(t.getDate()+n); return t.toISOString().slice(0,10); };
   const now=Date.now();
@@ -2327,7 +3147,7 @@ function getSampleUsers(){
 document.addEventListener('keydown',e=>{
   if(e.key==='Enter'&&document.getElementById('login-screen').classList.contains('active')) doLogin();
   if(e.key==='Escape'){
-    ['task-modal-overlay','trail-modal-overlay','users-panel-overlay','del-overlay','reset-pw-overlay','hm-panel-overlay','hm-view-overlay','sop-panel-overlay','sop-view-overlay'].forEach(id=>{ const el=document.getElementById(id); if(el) el.classList.remove('open'); });
+    ['task-modal-overlay','trail-modal-overlay','users-panel-overlay','del-overlay','reset-pw-overlay','hm-panel-overlay','hm-view-overlay','sop-panel-overlay','sop-view-overlay','sa-panel-overlay','sa-detail-overlay'].forEach(id=>{ const el=document.getElementById(id); if(el) el.classList.remove('open'); });
   }
 });
 
