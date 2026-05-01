@@ -332,6 +332,33 @@ tr.row-locked td{background:#fafaf9}
   .hm-tasks-table th,.hm-tasks-table td{padding:5px}
 }
 
+/* Attendee multi-select */
+.attendee-picker{position:relative}
+.attendee-toggle{width:100%;text-align:left;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:'IBM Plex Sans',sans-serif;min-height:36px}
+.attendee-toggle:hover{border-color:var(--border2)}
+.attendee-toggle .att-placeholder{color:var(--text3);font-style:italic}
+.attendee-toggle .att-count{font-size:11px;color:var(--text2);font-family:'IBM Plex Mono',monospace}
+.attendee-toggle .att-arrow{font-size:10px;color:var(--text3)}
+.attendee-chips{display:flex;flex-wrap:wrap;gap:4px;flex:1;min-width:0;overflow:hidden}
+.attendee-chip{display:inline-flex;align-items:center;gap:4px;background:var(--blue-bg);color:var(--blue);font-size:11px;padding:2px 7px;border-radius:10px;font-family:'IBM Plex Mono',monospace;white-space:nowrap}
+.attendee-chip .chip-x{cursor:pointer;font-weight:700;opacity:.7}
+.attendee-chip .chip-x:hover{opacity:1}
+.attendee-chip.guest{background:#fef3cd;color:var(--amber)}
+.attendee-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-lg);z-index:100;max-height:280px;overflow-y:auto;display:none}
+.attendee-dropdown.open{display:block}
+.attendee-search{width:100%;padding:8px 11px;border:none;border-bottom:1px solid var(--border);font-size:13px;font-family:'IBM Plex Sans',sans-serif;background:var(--surface);color:var(--text);position:sticky;top:0}
+.attendee-search:focus{outline:none}
+.attendee-options{padding:4px 0}
+.attendee-option{display:flex;align-items:center;gap:8px;padding:7px 11px;cursor:pointer;font-size:13px;color:var(--text)}
+.attendee-option:hover{background:var(--surface2)}
+.attendee-option input[type="checkbox"]{accent-color:var(--accent);cursor:pointer}
+.attendee-option .ao-name{flex:1}
+.attendee-option .ao-role{font-size:10px;color:var(--text3);font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.04em}
+.attendee-guest-add{display:flex;gap:6px;padding:8px;border-top:1px solid var(--border);background:var(--surface2)}
+.attendee-guest-add input{flex:1;padding:6px 9px;font-size:12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);font-family:'IBM Plex Sans',sans-serif}
+.attendee-guest-add button{font-size:12px;padding:5px 11px}
+.attendee-empty-search{padding:14px;color:var(--text3);font-style:italic;font-size:12px;text-align:center}
+
 /* SOPs */
 .btn-sop{background:#3b1f6e;color:#fff;border-color:#3b1f6e;font-weight:600}
 .btn-sop:hover{background:#2d1854}
@@ -790,7 +817,7 @@ let tasks={}, users={}, meetings={}, sops={}, sopLog={};
 let demoMode=false, demoTasks=[], demoUsers=[], demoMeetings=[], demoSops=[], demoSopLog=[];
 let currentUser=null;
 let editTaskKey=null, trailTaskKey=null, confirmCb=null, resetPwKey=null;
-let viewMeetingKey=null, hmTab='list', hmTaskRows=[];
+let viewMeetingKey=null, hmTab='list', hmTaskRows=[], hmAttendees={keys:[], guests:[]};
 let viewSopKey=null, editSopKey=null, sopTab='list';
 let currentLang=window._kdfLang||'en'; window._setModuleLang=function(l){currentLang=l;};
 
@@ -1682,7 +1709,22 @@ function renderHmNewForm(){
     <div class="hm-meta-row">
       <div class="form-field"><label>Meeting Title</label><input type="text" id="hm-title" value="${escAttr(defaultMeetingTitle())}"></div>
       <div class="form-field"><label>Meeting Date</label><input type="date" id="hm-date" value="${defaultDate}"></div>
-      <div class="form-field"><label>Attendees (optional)</label><input type="text" id="hm-attendees" placeholder="e.g. Ali, Bilal, Sara"></div>
+      <div class="form-field"><label>Attendees (optional)</label>
+        <div class="attendee-picker" id="hm-attendee-picker">
+          <button type="button" class="attendee-toggle" id="hm-attendee-toggle" onclick="toggleAttendeeDropdown(event)">
+            <div class="attendee-chips" id="hm-attendee-chips"><span class="att-placeholder">Select attendees…</span></div>
+            <span class="att-arrow">▼</span>
+          </button>
+          <div class="attendee-dropdown" id="hm-attendee-dropdown">
+            <input type="text" class="attendee-search" id="hm-attendee-search" placeholder="Search users…" oninput="renderAttendeeOptions()" onclick="event.stopPropagation()">
+            <div class="attendee-options" id="hm-attendee-options"></div>
+            <div class="attendee-guest-add">
+              <input type="text" id="hm-guest-input" placeholder="Add external guest by name…" onkeydown="if(event.key==='Enter'){event.preventDefault();addGuestAttendee();}" onclick="event.stopPropagation()">
+              <button type="button" class="btn btn-sm" onclick="addGuestAttendee()">＋ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="form-field full"><label>Agenda / Notes (optional)</label>
       <div class="mic-wrap"><textarea id="hm-agenda" placeholder="Brief agenda or context for this meeting…" rows="2"></textarea><button type="button" class="mic-btn" onclick="startMic('hm-agenda')" title="Dictate">🎤</button></div>
@@ -1708,7 +1750,103 @@ function renderHmNewForm(){
       <button class="btn btn-primary" onclick="saveHurdleMeeting()">Save Meeting</button>
     </div>`;
   hmRenderRows();
+  renderAttendeeChips();
+  renderAttendeeOptions();
 }
+
+// ── Attendee multi-select picker ─────────────────────────────────────────
+window.toggleAttendeeDropdown=function(ev){
+  if(ev) ev.stopPropagation();
+  const dd=document.getElementById('hm-attendee-dropdown');
+  if(!dd) return;
+  const willOpen = !dd.classList.contains('open');
+  dd.classList.toggle('open');
+  if(willOpen){
+    renderAttendeeOptions();
+    setTimeout(()=>document.getElementById('hm-attendee-search')?.focus(), 30);
+  }
+};
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e){
+  const picker = document.getElementById('hm-attendee-picker');
+  if(!picker) return;
+  if(!picker.contains(e.target)){
+    document.getElementById('hm-attendee-dropdown')?.classList.remove('open');
+  }
+});
+
+function renderAttendeeChips(){
+  const box=document.getElementById('hm-attendee-chips');
+  if(!box) return;
+  const all=allUsers();
+  const userChips = (hmAttendees.keys||[]).map(k=>{
+    const u=all.find(x=>x._key===k);
+    if(!u) return '';
+    return `<span class="attendee-chip" title="${escAttr(ROLES[u.role]||u.role||'')}">${escAttr(u.name)}<span class="chip-x" onclick="removeAttendee(event,'${k}')">✕</span></span>`;
+  }).filter(Boolean);
+  const guestChips = (hmAttendees.guests||[]).map((g,i)=>{
+    return `<span class="attendee-chip guest" title="External guest">${escAttr(g)}<span class="chip-x" onclick="removeGuestAttendee(event,${i})">✕</span></span>`;
+  });
+  const chips = userChips.concat(guestChips);
+  if(chips.length===0){
+    box.innerHTML='<span class="att-placeholder">Select attendees…</span>';
+  } else {
+    box.innerHTML = chips.join('');
+  }
+}
+
+function renderAttendeeOptions(){
+  const opts=document.getElementById('hm-attendee-options');
+  if(!opts) return;
+  const q=(document.getElementById('hm-attendee-search')?.value||'').toLowerCase().trim();
+  const list = allUsers()
+    .filter(u=>!q || (u.name||'').toLowerCase().includes(q) || (u.username||'').toLowerCase().includes(q) || (ROLES[u.role]||u.role||'').toLowerCase().includes(q))
+    .sort((a,b)=>(a.name||'').localeCompare(b.name||''));
+  if(!list.length){
+    opts.innerHTML='<div class="attendee-empty-search">No users match your search</div>';
+    return;
+  }
+  const selected = hmAttendees.keys||[];
+  opts.innerHTML = list.map(u=>{
+    const checked = selected.includes(u._key);
+    return `<label class="attendee-option">
+      <input type="checkbox" ${checked?'checked':''} onchange="toggleAttendee('${u._key}',this.checked)">
+      <span class="ao-name">${escAttr(u.name||u.username||'—')}</span>
+      <span class="ao-role">${escAttr(ROLES[u.role]||u.role||'')}</span>
+    </label>`;
+  }).join('');
+}
+
+window.toggleAttendee=function(key, checked){
+  if(!hmAttendees.keys) hmAttendees.keys=[];
+  if(checked && !hmAttendees.keys.includes(key)) hmAttendees.keys.push(key);
+  else if(!checked) hmAttendees.keys = hmAttendees.keys.filter(k=>k!==key);
+  renderAttendeeChips();
+};
+window.removeAttendee=function(ev, key){
+  ev?.stopPropagation();
+  hmAttendees.keys = (hmAttendees.keys||[]).filter(k=>k!==key);
+  renderAttendeeChips();
+  renderAttendeeOptions();
+};
+window.addGuestAttendee=function(){
+  const inp=document.getElementById('hm-guest-input');
+  if(!inp) return;
+  const v=inp.value.trim();
+  if(!v) return;
+  if(!hmAttendees.guests) hmAttendees.guests=[];
+  if(hmAttendees.guests.includes(v)){ toast('Guest already added','info'); return; }
+  hmAttendees.guests.push(v);
+  inp.value='';
+  renderAttendeeChips();
+  inp.focus();
+};
+window.removeGuestAttendee=function(ev, i){
+  ev?.stopPropagation();
+  hmAttendees.guests = (hmAttendees.guests||[]).filter((_,idx)=>idx!==i);
+  renderAttendeeChips();
+};
 
 const HURDLE_DEPTS=['Health','Feed','Breeding','Calf','Admin','Civil','Procurement','Inventory','Finance','MEP','General'];
 
@@ -1751,13 +1889,20 @@ window.hmDelRow=function(i){
 };
 window.hmResetForm=function(){
   hmTaskRows=[{description:'',assignedKey:'',deadline:'',dept:'Admin'}];
+  hmAttendees={keys:[], guests:[]};
   renderHmNewForm();
 };
 
 window.saveHurdleMeeting=async function(){
   const title=document.getElementById('hm-title').value.trim();
   const date=document.getElementById('hm-date').value;
-  const attendees=document.getElementById('hm-attendees').value.trim();
+  // Build attendees from picker state
+  const all=allUsers();
+  const userNames = (hmAttendees.keys||[]).map(k=>{ const u=all.find(x=>x._key===k); return u?u.name:''; }).filter(Boolean);
+  const guestNames = (hmAttendees.guests||[]).map(g=>g+' (guest)');
+  const attendees = userNames.concat(guestNames).join(', ');
+  const attendeeKeys = (hmAttendees.keys||[]).slice();
+  const guestList = (hmAttendees.guests||[]).slice();
   const agenda=document.getElementById('hm-agenda').value.trim();
   const decisions=document.getElementById('hm-decisions').value.trim();
   if(!title){ toast('Meeting title is required.','err'); return; }
@@ -1815,6 +1960,8 @@ window.saveHurdleMeeting=async function(){
     title,
     scheduledAt,
     attendees,
+    attendeeKeys,
+    guestList,
     agenda,
     keyDecisions: decisions,
     tasks: validTasks.map((r,i)=>{
@@ -1845,6 +1992,7 @@ window.saveHurdleMeeting=async function(){
     setSyncBadge('live');
   }
   hmTaskRows=[];
+  hmAttendees={keys:[], guests:[]};
   toast(`Meeting saved ✓ ${createdTaskIds.length} task${createdTaskIds.length===1?'':'s'} added to log`,'ok');
   hmTab='list';
   document.getElementById('hm-tab-list').classList.add('active');
